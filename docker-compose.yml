@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "3000:8080"
+    volumes:
+      - ~/Documents/open-web-ui-document-upload:/app/backend/data/docs
+      - open-webui:/app/backend/data  
+    networks:
+      - my-network
+
+  openai-edge-tts:
+    image: travisvn/openai-edge-tts:latest
+    ports:
+      - "5050:5050"
+    environment:
+      API_KEY: your_api_key_here
+      PORT: 5050
+    networks:
+      - my-network
+    container_name: openai-edge-tts
+
+volumes:  
+  open-webui:
+
+networks:
+  my-network:
